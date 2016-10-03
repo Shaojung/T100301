@@ -34,9 +34,13 @@ public class MainActivity extends AppCompatActivity {
     public void clickWrite(View v)
     {
         String fName = "test.txt";
-        FileOutputStream fOut = null;
+
+        File file = new File(getFilesDir().getAbsolutePath(),
+                "test.txt");
+        FileOutputStream fOut;
         try {
-            fOut = openFileOutput(fName, MODE_PRIVATE);
+            // fOut = openFileOutput(fName, MODE_PRIVATE);
+            fOut = new FileOutputStream(file);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             EditText ed = (EditText) findViewById(R.id.editText);
             String str = ed.getText().toString();
