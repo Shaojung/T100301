@@ -12,7 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
     TextView tv;
@@ -75,5 +78,25 @@ public class MainActivity extends AppCompatActivity {
             }
             catch (IOException e) { }
         }
+    }
+
+    public void clickReadRaw(View v)
+    {
+        InputStream is = null;
+        InputStreamReader reader = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+            is = getResources().openRawResource(R.raw.a123);
+            reader = new InputStreamReader(is, "UTF-8");
+            char[] buffer = new char[1];
+            while (reader.read(buffer) != -1) {
+                sb.append(new String(buffer));
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tv.setText(sb.toString());
     }
 }
